@@ -11,32 +11,32 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
-  @ApiProperty({ required: true })
+  @ApiProperty()
   name: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
-  @ApiProperty({ required: true })
+  @ApiProperty()
   description: string;
 
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ required: true })
+  @ApiProperty()
   price: number;
 
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ required: true })
+  @ApiProperty()
   stock: number;
 
   @IsString()
   @IsOptional()
-  @ApiProperty({ required: false })
+  @ApiProperty()
   image?: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ required: true })
+  @ApiProperty()
   categoryId: string;
 }
