@@ -24,9 +24,18 @@ export class UsersService {
       where: {
         id,
       },
-      include: {
-        address: true,
-      },
+      // include: {
+      //   address: true,
+      //   shoppingCart: {
+      //     include: {
+      //       shoppingCartItems: {
+      //         orderBy: {
+      //           createdAt: 'desc',
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
     });
   }
 

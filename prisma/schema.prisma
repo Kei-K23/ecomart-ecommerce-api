@@ -133,7 +133,7 @@ model OrderItem {
 model ShoppingCart {
   id String @id @default(uuid())
 
-  userId String
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   shoppingCartItems ShoppingCartItem[]
@@ -150,6 +150,8 @@ model ShoppingCartItem {
 
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  quantity Int @default(1)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

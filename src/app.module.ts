@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { ShoppingsModule } from './shoppings/shoppings.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     AddressesModule,
     AuthModule,
     ConfigModule.forRoot(),
+    ShoppingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
