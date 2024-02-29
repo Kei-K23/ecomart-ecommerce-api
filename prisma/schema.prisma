@@ -83,6 +83,7 @@ model Product {
 }
 
 enum OrderType {
+  FAILED
   PENDING
   PROCESSING
   SHIPPED

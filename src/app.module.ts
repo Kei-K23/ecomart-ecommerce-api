@@ -9,6 +9,7 @@ import { AddressesModule } from './addresses/addresses.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ShoppingsModule } from './shoppings/shoppings.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ShoppingsModule } from './shoppings/shoppings.module';
     AuthModule,
     ConfigModule.forRoot(),
     ShoppingsModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
