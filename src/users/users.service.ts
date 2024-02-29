@@ -19,10 +19,13 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.user.findUnique({
+  async findOne(id: string) {
+    return await this.prisma.user.findUnique({
       where: {
         id,
+      },
+      include: {
+        address: true,
       },
     });
   }

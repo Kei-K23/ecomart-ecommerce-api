@@ -18,8 +18,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
           .status(conflictStatus)
           .json({
             statusCode: conflictStatus,
-            timestamp: new Date().toISOString(),
-            path: ctx.getRequest().url,
+            error: exception.name,
             message: errorMessage,
           })
           .end();
@@ -29,9 +28,8 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         response
           .status(notFountStatus)
           .json({
-            statusCode: notFountStatus,
-            timestamp: new Date().toISOString(),
-            path: ctx.getRequest().url,
+            statusCode: conflictStatus,
+            error: exception.name,
             message: errorMessage,
           })
           .end();
