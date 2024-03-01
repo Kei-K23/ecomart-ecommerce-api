@@ -90,12 +90,6 @@ enum OrderType {
   DELIVERED
 }
 
-enum PaymentStatusType {
-  PAID
-  PENDING
-  FAILED
-}
-
 model Order {
   id String @id @default(uuid())
 
@@ -106,6 +100,8 @@ model Order {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  checkoutSessionId String @unique
 
   orderItems OrderItem[]
   payment    Payment[]
@@ -164,11 +160,10 @@ model Payment {
   amount Int
 
   payment       String
-  transaction   String
-  paymentStatus PaymentStatusType @default(PENDING)
+  paymentStatus String
 
-  orderId String
-  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  checkoutSessionId String
+  checkoutSession   Order  @relation(fields: [checkoutSessionId], references: [checkoutSessionId], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

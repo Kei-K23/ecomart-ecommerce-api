@@ -11,6 +11,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ShoppingsModule } from './shoppings/shoppings.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { OrdersModule } from './orders/orders.module';
+import { PaymentsModule } from './payments/payments.module';
+import { StripeWebhookModule } from './stripe-webhook/stripe-webhook.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { OrdersModule } from './orders/orders.module';
     ShoppingsModule,
     ReviewsModule,
     OrdersModule,
+    PaymentsModule,
+    StripeWebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],
