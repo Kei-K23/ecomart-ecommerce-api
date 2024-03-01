@@ -16,7 +16,7 @@ export class AddressesService {
     return this.prisma.address.findMany();
   }
 
-  findOne(id: string, userId: string) {
+  findOne(id: string, userId?: string) {
     return this.prisma.address.findUnique({
       where: {
         id,

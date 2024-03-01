@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -32,19 +33,27 @@ export class ReviewsController {
 
   @Get(':id')
   @ApiOkResponse({ type: ReviewEntity })
-  findOne(@Param('id') id: string) {
-    return this.reviewsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const review = await this.reviewsService.findOne(id);
+    if (!review) throw new NotFoundException(`Review ${id} not found`);
+
+    return review;
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: ReviewEntity })
-  update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-    return this.reviewsService.update(id, updateReviewDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateReviewDto: UpdateReviewDto,
+  ) {
+    const exReview = await this.findOne(id);
+    if (exReview) return this.reviewsService.update(id, updateReviewDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: ReviewEntity })
-  remove(@Param('id') id: string) {
-    return this.reviewsService.remove(id);
+  async remove(@Param('id') id: string) {
+    const exReview = await this.findOne(id);
+    if (exReview) return this.reviewsService.remove(id);
   }
 }

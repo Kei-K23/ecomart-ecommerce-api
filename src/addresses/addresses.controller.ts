@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
@@ -32,19 +33,26 @@ export class AddressesController {
 
   @Get(':id/:userId')
   @ApiOkResponse({ type: AddressEntity })
-  findOne(@Param('id') id: string, @Param('userId') userId: string) {
-    return this.addressesService.findOne(id, userId);
+  async findOne(@Param('id') id: string, @Param('userId') userId?: string) {
+    const address = await this.addressesService.findOne(id, userId);
+    if (!address) throw new NotFoundException(`Address ${id} not found`);
+    return address;
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: AddressEntity })
-  update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressesService.update(id, updateAddressDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateAddressDto: UpdateAddressDto,
+  ) {
+    const exAddress = await this.findOne(id);
+    if (exAddress) return this.addressesService.update(id, updateAddressDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: AddressEntity })
-  remove(@Param('id') id: string) {
-    return this.addressesService.remove(id);
+  async remove(@Param('id') id: string) {
+    const exAddress = await this.findOne(id);
+    if (exAddress) return this.addressesService.remove(id);
   }
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { ShoppingsService } from './shoppings.service';
 import { CreateShoppingDto } from './dto/create-shopping.dto';
@@ -36,8 +37,9 @@ export class ShoppingsController {
   //TODO: Correct the type for shopping cart details
   @Get(':id')
   @ApiOkResponse({ type: ShoppingDetailEntity })
-  findOne(@Param('id') id: string) {
-    return this.shoppingsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const shopping = await this.shoppingsService.findOne(id);
+    if (!shopping) throw new NotFoundException(`Shopping ${id} not found`);
   }
 
   @Patch(':id/increment')
