@@ -14,8 +14,8 @@ import { UpdateAddressDto } from './dto/update-address.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AddressEntity } from './entities/address.entity';
 
-@Controller('addresses')
-@ApiTags('addresses')
+@Controller('api/addresses')
+@ApiTags('api/addresses')
 export class AddressesController {
   constructor(private readonly addressesService: AddressesService) {}
 

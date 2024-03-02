@@ -14,8 +14,8 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CategoryEntity } from './entities/category.entity';
 
-@Controller('categories')
-@ApiTags('categories')
+@Controller('api/categories')
+@ApiTags('api/categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

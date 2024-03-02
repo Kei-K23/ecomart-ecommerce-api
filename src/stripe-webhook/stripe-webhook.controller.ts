@@ -3,8 +3,10 @@ import { StripeWebhookService } from './stripe-webhook.service';
 import { Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { OrderType } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('stripe-webhook')
+@Controller('api/stripe-webhook')
+@ApiTags('api/stripe-webhook')
 export class StripeWebhookController {
   constructor(
     private readonly stripeWebhookService: StripeWebhookService,

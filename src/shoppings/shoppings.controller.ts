@@ -17,8 +17,8 @@ import {
   ShoppingItemEntity,
 } from './entities/shopping.entity';
 
-@Controller('shoppings')
-@ApiTags('shoppings')
+@Controller('api/shoppings')
+@ApiTags('api/shoppings')
 export class ShoppingsController {
   constructor(private readonly shoppingsService: ShoppingsService) {}
 

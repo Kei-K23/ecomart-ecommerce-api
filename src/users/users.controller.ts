@@ -21,8 +21,8 @@ import {
 import { UserEntity } from './entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@Controller('users')
-@ApiTags('users')
+@Controller('api/users')
+@ApiTags('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
