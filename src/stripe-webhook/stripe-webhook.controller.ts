@@ -2,6 +2,7 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { StripeWebhookService } from './stripe-webhook.service';
 import { Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { OrderType } from '@prisma/client';
 
 @Controller('stripe-webhook')
 export class StripeWebhookController {
@@ -16,9 +17,19 @@ export class StripeWebhookController {
       // Handle the event
       switch (event.type) {
         case 'payment_intent.succeeded':
-          const paymentIntent = event.data.object;
-
-          console.log(paymentIntent);
+          console.log(event.data.object);
+          break;
+        case 'payment_intent.canceled':
+          break;
+        case 'checkout.session.expired':
+          await this.prisma.order.update({
+            where: {
+              checkoutSessionId: event.data.object,
+            },
+            data: {
+              status: OrderType.FAILED,
+            },
+          });
           break;
         case 'checkout.session.completed':
           const checkoutSession = event.data.object;
@@ -29,6 +40,15 @@ export class StripeWebhookController {
               amount: checkoutSession.amount_total,
               payment: checkoutSession.payment_method_types[0],
               paymentStatus: checkoutSession.payment_status,
+            },
+          });
+
+          await this.prisma.order.update({
+            where: {
+              checkoutSessionId: checkoutSession.id,
+            },
+            data: {
+              status: OrderType.PROCESSING,
             },
           });
 

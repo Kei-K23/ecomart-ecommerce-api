@@ -163,7 +163,8 @@ model Payment {
   paymentStatus String
 
   checkoutSessionId String
-  checkoutSession   Order  @relation(fields: [checkoutSessionId], references: [checkoutSessionId], onDelete: Cascade)
+
+  order Order @relation(fields: [checkoutSessionId], references: [checkoutSessionId], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

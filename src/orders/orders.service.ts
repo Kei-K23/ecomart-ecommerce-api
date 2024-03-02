@@ -23,7 +23,6 @@ export class OrdersService {
     }));
 
     const session = await this.paymentsService.createCheckout(checkoutData);
-    console.log(session.url);
     console.log(session);
 
     return await this.prisma.order.create({
